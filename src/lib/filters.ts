@@ -36,8 +36,8 @@ export function applyFilters(listings: Listing[], filters: FilterState): Listing
 
     if (filters.yearMin && listing.year < Number(filters.yearMin)) return false;
     if (filters.yearMax && listing.year > Number(filters.yearMax)) return false;
-    if (filters.priceMin && listing.price < Number(filters.priceMin)) return false;
-    if (filters.priceMax && listing.price > Number(filters.priceMax)) return false;
+    if (filters.priceMin && listing.priceMax < Number(filters.priceMin)) return false;
+    if (filters.priceMax && listing.priceMin > Number(filters.priceMax)) return false;
 
     if (filters.location) {
       if (!listing.storageLocation.toLowerCase().includes(filters.location.toLowerCase())) {

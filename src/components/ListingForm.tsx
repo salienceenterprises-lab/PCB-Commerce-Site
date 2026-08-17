@@ -22,7 +22,8 @@ export default function ListingForm({ initialData }: ListingFormProps) {
     brand: initialData?.brand ?? "",
     model: initialData?.model ?? "",
     year: initialData?.year?.toString() ?? "",
-    price: initialData?.price?.toString() ?? "",
+    priceMin: initialData?.priceMin?.toString() ?? "",
+    priceMax: initialData?.priceMax?.toString() ?? "",
     storageLocation: initialData?.storageLocation ?? "",
     condition: initialData?.condition ?? "",
     service: initialData?.service ?? "",
@@ -44,7 +45,8 @@ export default function ListingForm({ initialData }: ListingFormProps) {
       brand: form.brand,
       model: form.model,
       year: Number(form.year),
-      price: Number(form.price),
+      priceMin: Number(form.priceMin),
+      priceMax: Number(form.priceMax || form.priceMin),
       storageLocation: form.storageLocation,
       condition: form.condition,
       service: form.service,
@@ -190,14 +192,29 @@ export default function ListingForm({ initialData }: ListingFormProps) {
 
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">
-              Price (USD) *
+              Price Min (USD) *
             </label>
             <input
               type="number"
               required
               min="0"
-              value={form.price}
-              onChange={(e) => update("price", e.target.value)}
+              value={form.priceMin}
+              onChange={(e) => update("priceMin", e.target.value)}
+              className={inputClass}
+              placeholder="120000"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Price Max (USD) *
+            </label>
+            <input
+              type="number"
+              required
+              min="0"
+              value={form.priceMax}
+              onChange={(e) => update("priceMax", e.target.value)}
               className={inputClass}
               placeholder="150000"
             />

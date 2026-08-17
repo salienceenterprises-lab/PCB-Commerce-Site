@@ -11,6 +11,11 @@ function formatPrice(price: number): string {
   }).format(price);
 }
 
+function priceRange(listing: Listing): string {
+  if (listing.priceMin === listing.priceMax) return formatPrice(listing.priceMin);
+  return `${formatPrice(listing.priceMin)} – ${formatPrice(listing.priceMax)}`;
+}
+
 function GroupBadge({ group }: { group: string }) {
   const style =
     group === "PCB Fabrication"
@@ -51,7 +56,12 @@ function ConditionBadge({ condition }: { condition: string }) {
   );
 }
 
-export default function ListingsTable({ listings }: { listings: Listing[] }) {
+interface ListingsTableProps {
+  listings: Listing[];
+  stickyTop?: number;
+}
+
+export default function ListingsTable({ listings, stickyTop = 0 }: ListingsTableProps) {
   if (listings.length === 0) {
     return (
       <div className="flex h-48 flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-white text-center">
@@ -95,7 +105,7 @@ export default function ListingsTable({ listings }: { listings: Listing[] }) {
                 </p>
                 <div className="mt-1.5 flex items-center justify-between">
                   <span className="text-sm font-bold text-brand-700">
-                    {formatPrice(listing.price)}
+                    {priceRange(listing)}
                   </span>
                   <ConditionBadge condition={listing.condition} />
                 </div>
@@ -107,17 +117,20 @@ export default function ListingsTable({ listings }: { listings: Listing[] }) {
       </div>
 
       {/* Desktop table layout */}
-      <div className="hidden overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm md:block">
+      <div className="hidden rounded-lg border border-gray-200 bg-white shadow-sm md:block">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="border-b border-gray-200 bg-gray-50/80">
+            <tr
+              className="border-b border-gray-200 bg-gray-50"
+              style={{ position: "sticky", top: stickyTop, zIndex: 10 }}
+            >
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Listing</th>
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Equipment</th>
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Category</th>
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Brand</th>
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Model</th>
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Year</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Price</th>
+              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Price Range</th>
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Location</th>
               <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Condition</th>
             </tr>
@@ -161,7 +174,7 @@ export default function ListingsTable({ listings }: { listings: Listing[] }) {
                   {listing.year}
                 </td>
                 <td className="whitespace-nowrap px-3 py-2 font-semibold text-gray-900">
-                  {formatPrice(listing.price)}
+                  {priceRange(listing)}
                 </td>
                 <td className="whitespace-nowrap px-3 py-2 text-gray-600">
                   {listing.storageLocation}

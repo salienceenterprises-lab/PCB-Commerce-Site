@@ -99,7 +99,9 @@ export default async function ListingDetailPage({
           {/* Mobile price + condition (shown above details on small screens) */}
           <div className="mt-4 flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:hidden">
             <div className="text-2xl font-bold text-brand-700">
-              {formatPrice(listing.price)}
+              {listing.priceMin === listing.priceMax
+                ? formatPrice(listing.priceMin)
+                : `${formatPrice(listing.priceMin)} – ${formatPrice(listing.priceMax)}`}
             </div>
             <ConditionBadge condition={listing.condition} />
           </div>
@@ -125,7 +127,9 @@ export default async function ListingDetailPage({
               {/* Desktop price + condition */}
               <div className="hidden text-right lg:block">
                 <div className="text-2xl font-bold text-brand-700">
-                  {formatPrice(listing.price)}
+                  {listing.priceMin === listing.priceMax
+                ? formatPrice(listing.priceMin)
+                : `${formatPrice(listing.priceMin)} – ${formatPrice(listing.priceMax)}`}
                 </div>
                 <div className="mt-1">
                   <ConditionBadge condition={listing.condition} />

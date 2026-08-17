@@ -50,7 +50,7 @@ export default function SellerDashboardPage() {
             value:
               sellerListings.length > 0
                 ? formatPrice(
-                    sellerListings.reduce((sum, l) => sum + l.price, 0) /
+                    sellerListings.reduce((sum, l) => sum + (l.priceMin + l.priceMax) / 2, 0) /
                       sellerListings.length
                   )
                 : "$0",
@@ -59,7 +59,7 @@ export default function SellerDashboardPage() {
           },
           {
             value: formatPrice(
-              sellerListings.reduce((sum, l) => sum + l.price, 0)
+              sellerListings.reduce((sum, l) => sum + l.priceMax, 0)
             ),
             label: "Total Inventory Value",
             color: "border-cross/30 bg-cross-light/30",
@@ -103,7 +103,7 @@ export default function SellerDashboardPage() {
                   {listing.brand} {listing.model} &middot; {listing.category}
                 </div>
                 <div className="mb-3 flex items-center justify-between">
-                  <span className="font-semibold text-gray-900">{formatPrice(listing.price)}</span>
+                  <span className="font-semibold text-gray-900">{listing.priceMin === listing.priceMax ? formatPrice(listing.priceMin) : `${formatPrice(listing.priceMin)} – ${formatPrice(listing.priceMax)}`}</span>
                   <span className="text-xs text-gray-500">{listing.condition}</span>
                 </div>
                 <div className="flex gap-3 border-t border-gray-100 pt-3">
@@ -135,7 +135,7 @@ export default function SellerDashboardPage() {
                 <tr className="border-b border-gray-200 bg-gray-50/80">
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Listing</th>
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Category</th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Price</th>
+                  <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Price Range</th>
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Condition</th>
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Created</th>
                   <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wide text-gray-500">Actions</th>
@@ -149,7 +149,7 @@ export default function SellerDashboardPage() {
                       <div className="text-xs text-gray-500">{listing.brand} {listing.model}</div>
                     </td>
                     <td className="px-4 py-3 text-gray-600">{listing.category}</td>
-                    <td className="px-4 py-3 font-semibold text-gray-900">{formatPrice(listing.price)}</td>
+                    <td className="whitespace-nowrap px-4 py-3 font-semibold text-gray-900">{listing.priceMin === listing.priceMax ? formatPrice(listing.priceMin) : `${formatPrice(listing.priceMin)} – ${formatPrice(listing.priceMax)}`}</td>
                     <td className="px-4 py-3 text-gray-600">{listing.condition}</td>
                     <td className="px-4 py-3 text-gray-500">{listing.createdAt}</td>
                     <td className="px-4 py-3">
