@@ -117,8 +117,8 @@ export default function ListingsTable({ listings, stickyTop = 0 }: ListingsTable
       </div>
 
       {/* Desktop table layout */}
-      <div className="hidden rounded-lg border border-gray-200 bg-white shadow-sm md:block">
-        <table className="w-full text-left text-sm">
+      <div className="hidden rounded-lg border border-gray-200 bg-white shadow-sm md:block" style={{ overflowX: "clip" }}>
+        <table className="w-full table-fixed text-left text-sm">
           <thead>
             <tr
               className="border-b border-gray-200 bg-gray-50"
