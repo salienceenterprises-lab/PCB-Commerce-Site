@@ -119,27 +119,38 @@ export default function ListingsTable({ listings, stickyTop = 0 }: ListingsTable
       {/* Desktop table layout */}
       <div className="hidden rounded-lg border border-gray-200 bg-white shadow-sm md:block" style={{ overflowX: "clip" }}>
         <table className="w-full table-fixed text-left text-sm">
+          <colgroup>
+            <col style={{ width: "22%" }} />
+            <col style={{ width: "10%" }} />
+            <col style={{ width: "14%" }} />
+            <col style={{ width: "8%" }} />
+            <col style={{ width: "10%" }} />
+            <col style={{ width: "5%" }} />
+            <col style={{ width: "13%" }} />
+            <col style={{ width: "10%" }} />
+            <col style={{ width: "8%" }} />
+          </colgroup>
           <thead>
             <tr
               className="border-b border-gray-200 bg-gray-50"
               style={{ position: "sticky", top: stickyTop, zIndex: 10 }}
             >
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Listing</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Equipment</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Category</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Brand</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Model</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Year</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Price Range</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Location</th>
-              <th className="whitespace-nowrap px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Condition</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Listing</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Equipment</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Category</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Brand</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Model</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Year</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Price Range</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Location</th>
+              <th className="px-3 py-2.5 text-xs font-semibold uppercase tracking-wide text-gray-500">Condition</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {listings.map((listing) => (
               <tr key={listing.id} className="transition-colors hover:bg-brand-50/40">
                 <td className="px-3 py-2">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     {listing.pictures.length > 0 && (
                       <img
                         src={listing.pictures[0]}
@@ -149,37 +160,37 @@ export default function ListingsTable({ listings, stickyTop = 0 }: ListingsTable
                     )}
                     <Link
                       href={`/listings/${listing.id}`}
-                      className="font-medium text-brand-700 hover:text-brand-900 hover:underline"
+                      className="truncate font-medium text-brand-700 hover:text-brand-900 hover:underline"
                     >
                       {listing.title}
                     </Link>
                   </div>
                 </td>
-                <td className="whitespace-nowrap px-3 py-2 text-gray-600">
+                <td className="truncate px-3 py-2 text-gray-600">
                   {listing.equipment}
                 </td>
-                <td className="whitespace-nowrap px-3 py-2">
-                  <div className="flex items-center gap-1.5">
+                <td className="px-3 py-2">
+                  <div className="flex items-center gap-1">
                     <GroupBadge group={listing.categoryGroup} />
-                    <span className="text-gray-600">{listing.category}</span>
+                    <span className="truncate text-gray-600">{listing.category}</span>
                   </div>
                 </td>
-                <td className="whitespace-nowrap px-3 py-2 text-gray-700">
+                <td className="truncate px-3 py-2 text-gray-700">
                   {listing.brand}
                 </td>
-                <td className="whitespace-nowrap px-3 py-2 text-gray-600">
+                <td className="truncate px-3 py-2 text-gray-600">
                   {listing.model}
                 </td>
-                <td className="whitespace-nowrap px-3 py-2 text-gray-600">
+                <td className="px-3 py-2 text-gray-600">
                   {listing.year}
                 </td>
-                <td className="whitespace-nowrap px-3 py-2 font-semibold text-gray-900">
+                <td className="truncate px-3 py-2 font-semibold text-gray-900">
                   {priceRange(listing)}
                 </td>
-                <td className="whitespace-nowrap px-3 py-2 text-gray-600">
+                <td className="truncate px-3 py-2 text-gray-600">
                   {listing.storageLocation}
                 </td>
-                <td className="whitespace-nowrap px-3 py-2">
+                <td className="px-3 py-2">
                   <ConditionBadge condition={listing.condition} />
                 </td>
               </tr>
